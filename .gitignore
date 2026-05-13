@@ -3,5 +3,4 @@ __pycache__/
 .pytest_cache/
 .etl/__pycache__/
 data/
-_site/
 .git/
