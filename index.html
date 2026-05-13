@@ -4,23 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard Azúcar - Infocaña</title>
-    <script src="https://shinylive.io/shinylive/load-shinylive-sw.js" type="module"></script>
+    <script src="./shinylive/load-shinylive-sw.js" type="module"></script>
     <script type="module">
-      import { runExportedApp } from "https://shinylive.io/shinylive/shinylive.js";
+      import { runExportedApp } from "./shinylive/shinylive.js";
       runExportedApp({
         id: "root",
         appEngine: "python",
-        relPath: "_site/",
+        relPath: "",
       });
     </script>
+    <link rel="stylesheet" href="./shinylive/style-resets.css" />
+    <link rel="stylesheet" href="./shinylive/shinylive.css" />
     <style>
-      body { font-family: Arial, sans-serif; margin: 20px; }
-      h1 { color: #2c3e50; }
+      body { font-family: Arial, sans-serif; margin: 0; }
+      h1 { color: #2c3e50; padding: 20px; }
     </style>
   </head>
   <body>
     <h1>Dashboard Azúcar - Infocaña</h1>
     <div id="root"></div>
-    <p>Cargando aplicación...</p>
+    <p style="padding: 20px;">Cargando aplicación Shiny...</p>
   </body>
 </html>
