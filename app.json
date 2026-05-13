@@ -1,0 +1,7 @@
+{
+  "name": "Dashboard Azucar - Infocaña",
+  "version": "1.0.0",
+  "summary": "Análisis predictivo de producción de azúcar en México",
+  "detailed_description": "Dashboard desarrollado con Shiny for Python para el análisis predictivo de la producción de azúcar en México usando datos de Infocaña.",
+  "version": "1.0.0"
+}

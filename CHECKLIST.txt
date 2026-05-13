@@ -1,0 +1,103 @@
+Proyecto final Big Data — Infocaña (UNACH, Ene–Jun 2026)
+Título PDF: "Análisis predictivo de la producción de azúcar en México mediante regresión
+lineal y procesamiento ETL con datos abiertos de Infocaña"
+
+LEYENDA
+  [X] = ya cubierto en ESTE repositorio (código / datos generados)
+  [ ] = aún falta (tú / equipo / entrega)
+  [~] = parcial o depende de cómo de estricto sea la revisión (explicar en informe)
+
+Instrucciones: cambia [ ] por [X] cuando completes cada ítem pendiente.
+
+================================================================================
+PARTE 1 — LO QUE PIDE EL PDF (literal / por secciones)
+================================================================================
+
+--- Propósito general (PDF) ---
+  Integrar ETL + regresión lineal + predicción en contexto agroindustrial + dashboard
+  de visualización con Shiny for Python + repositorio GitHub Pages.
+
+--- Construcción del modelo (PDF) ---
+  [X] Regresión lineal en Python para predecir producción total de azúcar según variables
+      operativas (caña molida / superficie cosechada).
+  [~] Datos 2015–2026 "concentrados" tras ETL: en repo hay varias zafras desde CSV locales;
+      el PDF pide descarga desde datos.gob.mx (ver Parte 2 / Extract).
+  [ ] Fuente citada formalmente en informe: https://www.datos.gob.mx/dataset/avance_produccion_cana_azucar_infocana
+
+--- Paso 1 — Criterios de análisis (PDF) ---
+  [X] Serie temporal con eje tiempo/zafra (gráfico producción por zafra).
+  [X] Y = azucar_producida_total; X = caña_molida_neta o superficie_cosechada (selector en app).
+  [~] "Correcto ajuste/calibración del modelo Series de tiempo": hay tendencia lineal simple
+      para próxima zafra; no es un modelo ARIMA/SARIMA. Justificar o ampliar en informe si pide más.
+  [X] División 80% entrenamiento / 20% pruebas (en regresión X→Y, orden cronológico por zafra).
+
+--- Metodología — 1. ETL (PDF) ---
+  Extract:
+    [~] Descarga CSV desde datos.gob.mx (2015–2026): aquí usas CSV ya puestos en carpeta csv/;
+        falta script o evidencia de descarga si el profesor lo exige explícito.
+    [X] Integración de múltiples zafras en un solo dataset (etl/pipeline.py → data/*.csv).
+  Transform:
+    [X] Eliminación de valores nulos (registros sin azúcar total válido, etc.).
+    [X] Normalización de nombres de columnas (minúsculas, renombres azucar_total → azucar_producida_total, etc.).
+    [X] Conversión de tipos numéricos.
+    [X] Variable derivada ejemplo: rendimiento (y rendimiento promedio por ingenio en agregados).
+    [X] Agregación por zafra (totales nacionales / por ingenio según filtro).
+  Load:
+    [X] Almacenamiento en DataFrame de Pandas (CSV en carpeta data/).
+    [ ] Base de datos SQLite (PDF dice opcional): NO implementado; añadir solo si lo piden.
+
+--- Metodología — Modelado regresión lineal simple (PDF) ---
+  [X] Forma Y = β0 + β1·X con sklearn.
+  [X] Ejemplo del PDF: Y azúcar total, X caña molida neta (y alternativa superficie en UI).
+
+--- Paso 2 — Dashboard (PDF + mockup) ---
+  [X] Framework Shiny (Python).
+  [ ] ShinyLive + despliegue (PDF sugiere ShinyLive): código listo, falta publicar en GitHub Pages.
+  [X] Conjunto visible en componente tipo DataTable (tabla filtrada).
+  [X] Plot de serie de tiempo (producción por zafra).
+  [X] Uso de sklearn en la regresión mostrada en gráfico.
+  [X] Controles de manipulación de entrada (X, ingenio, rango zafras, botón Actualizar).
+
+--- Paso 3 — Cuestionamientos (PDF) ---
+  [ ] 1) En qué medida caña molida neta predice azúcar total por zafra y relación funcional
+        (pendiente: redactar en informe; el dashboard da R² y gráficos como evidencia).
+  [ ] 2) Cómo cambió la producción por zafras y cuánto podría producirse la próxima zafra anual
+        si la tendencia continúa (pendiente: redactar; la app muestra extrapolación lineal simple).
+
+--- Productos entregables (PDF) ---
+  [ ] Informe del proyecto final en formato .pdf
+  [X] Dashboard (Shiny) en código (app.py)
+  [ ] URL del repositorio GitHub Pages con la aplicación desplegada (obligatorio hosting GitHub)
+
+--- Contenido mínimo del informe PDF (PDF) ---
+  [ ] Hoja de presentación (proyecto, estudiantes, fecha…)
+  [ ] Introducción
+  [ ] Código del proyecto y URL del repositorio GitHub Pages
+  [ ] Resultados (capturas de pantallas del funcionamiento)
+  [ ] Interpretación de resultados y cuestionamientos del caso de estudio
+
+--- Logística (PDF) ---
+  [ ] Equipo: máximo 2 estudiantes (nombres en portada)
+  [ ] Entrega / presentación: 12 de mayo de 2026 (confirmar hora con el profesor)
+
+================================================================================
+PARTE 2 — AVANCE RÁPIDO (solo marcas; alinea con Parte 1)
+================================================================================
+
+Hecho en repo (resumen)
+  [X] etl/pipeline.py + salidas en data/
+  [X] app.py (Shiny): filtros, 2 gráficos, tabla, pronóstico tendencia, pestaña Acerca de
+  [X] requirements.txt
+  [X] Datos ETL: 12,980 registros procesados (2014-2025)
+
+ Falta típico para entregar según PDF
+  [ ] Informe .pdf completo (incluye cuestionamientos 1 y 2 por escrito)
+  [ ] Repo GitHub + GitHub Pages + URL funcional
+  [X] (Parcial) Script o comprobante de descarga datos.gob.mx - usa CSV locales
+  [ ] (Opcional) SQLite
+  [ ] Capturas para el PDF y revisión final (ortografía, números coherentes con dashboard)
+
+--- Comandos útiles ---
+  python -m etl.pipeline
+  pip install -r requirements.txt
+  shiny run app:app --reload
